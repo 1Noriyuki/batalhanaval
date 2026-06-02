@@ -1,30 +1,12 @@
 @echo off
-setlocal enabledelayedexpansion
+cd /d "%~dp0"
 
-cd /d "c:\Users\Enzo\Documents\estudo programacao\batalhanaval"
+echo Building and running project with Maven...
 
-echo Compiling all Java files...
+mvn -q compile exec:java -Dexec.mainClass=com.batalhanaval.ui.Main
 
-REM Create output directory
-if not exist out mkdir out
-
-REM Compile all Java files with proper ordering
-javac -d out ^
-  domain\model\*.java ^
-  domain\player\*.java ^
-  service\*.java ^
-  repository\*.java ^
-  config\*.java ^
-  ui\*.java
-
-if %ERRORLEVEL% equ 0 (
+if %ERRORLEVEL% neq 0 (
     echo.
-    echo Compilation successful!
-    echo.
-    echo Running game...
-    java -cp "out;lib\*" com.batalhanaval.ui.Main
-) else (
-    echo.
-    echo Compilation failed! Check errors above.
+    echo Execution failed! Check errors above.
     pause
 )

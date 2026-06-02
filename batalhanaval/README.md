@@ -4,26 +4,30 @@ Um jogo de Batalha Naval implementado em Java com arquitetura orientada a objeto
 
 ## 📋 Requisitos
 
-- **Java 11+** (obrigatório para suportar text blocks)
-- **Windows** (scripts de compilação fornecidos em `.bat`)
-- **SQLite JDBC 3.53.1.0** (incluído em `lib/`)
+- **Java 11+**
+- **Maven 3.6+**
+- **SQLite JDBC** gerenciado pelo Maven
 
 ## 📂 Estrutura do Projeto
 
 ```
 batalhanaval/
-├── domain/
-│   ├── model/          # Modelos de domínio (Navio, Tabuleiro, Coordenada, etc)
-│   └── player/         # Classes de jogadores (Humano, CPU)
-├── service/            # Lógica de jogo (GameEngine, GameTester)
-├── repository/         # Camada de persistência (banco de dados)
-├── config/             # Configurações do jogo
-├── ui/                 # Interface com usuário (Main.java, TerminalUI.java)
+├── src/
+│   └── main/
+│       └── java/
+│           └── com/batalhanaval/
+│               ├── config/
+│               ├── domain/
+│               │   ├── model/
+│               │   └── player/
+│               ├── repository/
+│               ├── service/
+│               ├── ui/
+│               └── DataViewer.java
 ├── data/               # Banco de dados SQLite (criado automaticamente)
-├── lib/                # Dependências externas (sqlite-jdbc)
-├── out/                # Classe compiladas (gerado automaticamente)
-├── compile.bat         # Script para compilar apenas
-└── build_and_run.bat   # Script para compilar e executar
+├── pom.xml             # Configuração Maven
+├── compile.bat         # Script atualizado para Maven
+└── build_and_run.bat   # Script atualizado para Maven
 ```
 
 ## 🚀 Como Executar
@@ -38,17 +42,24 @@ Ou via Command Prompt:
 build_and_run.bat
 ```
 
-### Opção 2: Compilar e Executar Manualmente
+### Opção 2: Compilar e Executar com Maven
 
 ```cmd
 # Compilar
-javac -d out domain\model\*.java domain\player\*.java service\*.java repository\*.java config\*.java ui\*.java
+mvn compile
 
-# Executar o jogo
-java -cp "out;lib\*" com.batalhanaval.ui.Main
+# Executar no terminal
+mvn exec:java -Dexec.mainClass=com.batalhanaval.ui.Main
 ```
 
-### Opção 3: Executar via VS Code
+### Opção 3: Criar o JAR executável com Maven
+
+```cmd
+mvn package
+java -jar target\batalhanaval-1.0-SNAPSHOT.jar
+```
+
+### Opção 4: Executar via VS Code
 
 Se tiver a extensão **Extension Pack for Java** instalada:
 1. Abra o workspace: `batalhanaval.code-workspace`

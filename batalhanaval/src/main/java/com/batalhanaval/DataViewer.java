@@ -1,3 +1,5 @@
+package com.batalhanaval;
+
 import java.sql.*;
 
 public class DataViewer {
